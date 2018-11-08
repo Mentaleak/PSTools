@@ -43,7 +43,7 @@ function get-PSTool_usedCommands(){
     foreach($line in $fileData)
     {
     $activeline++
-    Write-Progress -Status "Reading $($file.name)" -activity "Line $activeline" -PercentComplete (100*($activeline/$fileData.count))
+    Write-Progress -Status "Reading $($file.name)" -activity "Line $activeline / $($fileData.count)" -PercentComplete (100*($activeline/$fileData.count))
         #write-host $line
         $upline=$line.ToUpper()
         #write-host $upline
@@ -56,7 +56,7 @@ function get-PSTool_usedCommands(){
                 if(("$($upline)"[(("$($upline)".IndexOf("$commandName"))+"$commandName".Length)] -notmatch '^[a-zA-Z0-9]+$') -and ("$($upline)"[("$($upline)".IndexOf("$commandName"))-1] -notmatch '^[a-zA-Z0-9]+$'))
                 {
                 if ($mehCommandList| where{$_.name -eq $command.name} ){
-                write-host "$($command.Name): $line" -ForegroundColor "White"
+                #write-host "$($command.Name): $line" -ForegroundColor "White"
 
                     if($mehFoundCommands | where{$_.CommandName -eq "$($command.Name)"})
                     {
@@ -73,7 +73,7 @@ function get-PSTool_usedCommands(){
                     }
                 
                 }else{
-                write-host "$($command.Name): $line" -ForegroundColor "Green"
+                #write-host "$($command.Name): $line" -ForegroundColor "Green"
                  if($FoundCommands | where{$_.CommandName -eq "$($command.Name)"})
                     {
                       ($FoundCommands | where{$_.CommandName -eq "$($command.Name)"}).lines+="`n$($line.trim())"
